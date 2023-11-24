@@ -6,10 +6,17 @@ const createUser = async (req: Request, res: Response) => {
     const user = req.body;
     const result = await UserServices.createUserIntoDB(user);
 
+    // console.log(result);
+
+    //const newData = result.toObject();
+
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    const { password, ...userData } = result.toObject();
+
     res.status(200).json({
       success: true,
       message: 'User created successfully!',
-      data: result,
+      data: userData,
     });
   } catch (error) {
     res.status(404).json({
