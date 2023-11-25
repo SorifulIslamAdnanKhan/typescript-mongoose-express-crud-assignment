@@ -133,10 +133,71 @@ const deleteSingleUser = async (req: Request, res: Response) => {
   }
 };
 
+// Add product into orders field
+
+const addNewProductToOrder = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const { productName, price, quantity } = req.body;
+
+    await UserServices.addProductIntoOrder(userId, {
+      productName,
+      price,
+      quantity,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Order created successfully!',
+      data: null,
+    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    res.status(404).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: 404,
+        description: 'Order not created successfully!',
+      },
+    });
+  }
+};
+
+// Get all orders from specific user
+
+const getAllOrdersFormSpecificUser = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const orders =
+      await UserServices.getAllOrdersFormSpecificUserFromDB(userId);
+
+    console.log(orders);
+
+    res.status(200).json({
+      success: true,
+      message: 'Orders fetched successfully!',
+      data: orders,
+    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    res.status(404).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: 404,
+        description: 'Orders not found!',
+      },
+    });
+  }
+};
+
 export const UserController = {
   createUser,
   getAllUsers,
   getSingleUser,
   updateSingleUser,
   deleteSingleUser,
+  addNewProductToOrder,
+  getAllOrdersFormSpecificUser,
 };

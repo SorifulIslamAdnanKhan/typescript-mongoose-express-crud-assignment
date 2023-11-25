@@ -1,5 +1,5 @@
 import { User } from '../user.model';
-import { TUser } from './user.interface';
+import { TOrder, TUser } from './user.interface';
 import bcrypt from 'bcrypt';
 import userUpdateValidationSchema from './user.update.validation';
 import config from '../../config';
@@ -96,10 +96,44 @@ const deleteUser = async (userId: string) => {
   }
 };
 
+// Add product into orders field
+
+const addProductIntoOrder = async (userId: string, orderData: TOrder) => {
+  const result = await User.findOneAndUpdate(
+    { userId },
+    { $addToSet: { orders: orderData } },
+  );
+
+  if (result?.isUserExists(userId)) {
+    return result;
+  } else {
+    throw new Error('User is not exist in database!');
+  }
+};
+
+// Get all orders from specific user
+
+const getAllOrdersFormSpecificUserFromDB = async (userId: string) => {
+  const result = await User.findOne({ userId }).select({
+    orders: 1,
+    _id: 0,
+  });
+
+  // Checking user availability in DB
+
+  if (result?.isUserExists(userId)) {
+    return result;
+  } else {
+    throw new Error('User is not exist in database!');
+  }
+};
+
 export const UserServices = {
   createUserIntoDB,
   getAllUsersFromDB,
   getSingleUserFromDB,
   updateUser,
   deleteUser,
+  addProductIntoOrder,
+  getAllOrdersFormSpecificUserFromDB,
 };
