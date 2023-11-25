@@ -1,30 +1,32 @@
 import { Request, Response } from 'express';
 import { UserServices } from './user.service';
+import userValidationSchema from './user.validation';
 
 const createUser = async (req: Request, res: Response) => {
   try {
     const user = req.body;
-    const result = await UserServices.createUserIntoDB(user);
 
-    // console.log(result);
+    const zodParseUserData = userValidationSchema.parse(user);
 
-    //const newData = result.toObject();
+    const result = await UserServices.createUserIntoDB(zodParseUserData);
 
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-    const { password, ...userData } = result.toObject();
+    const { password, __v, _id, ...userData } = result.toObject();
 
     res.status(200).json({
       success: true,
       message: 'User created successfully!',
       data: userData,
     });
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     res.status(404).json({
       success: false,
-      message: 'User not found!',
+      message: 'User is not created successfully!',
       error: {
         code: 404,
-        description: 'User not found!',
+        error: error,
+        description: error.message || 'User is not created successfully!',
       },
     });
   }

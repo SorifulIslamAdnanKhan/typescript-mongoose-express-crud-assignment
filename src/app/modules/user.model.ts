@@ -1,20 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { TAddress, TUser, TOrder } from './user/user.interface';
-
-const addressSchema = new Schema<TAddress>({
-  street: {
-    type: String,
-    required: [true, 'Street field is required.'],
-  },
-  city: {
-    type: String,
-    required: [true, 'City field is required.'],
-  },
-  country: {
-    type: String,
-    required: [true, 'Country field is required.'],
-  },
-});
+import { TUser, TOrder } from './user/user.interface';
 
 const ordersSchema = new Schema<TOrder>({
   productName: {
@@ -70,8 +55,18 @@ const userSchema = new Schema<TUser>({
     type: [String],
   },
   address: {
-    type: addressSchema,
-    required: [true, 'Address field is required.'],
+    street: {
+      type: String,
+      required: [true, 'Street field is required.'],
+    },
+    city: {
+      type: String,
+      required: [true, 'City field is required.'],
+    },
+    country: {
+      type: String,
+      required: [true, 'Country field is required.'],
+    },
   },
   orders: {
     type: ordersSchema,

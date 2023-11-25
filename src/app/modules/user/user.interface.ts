@@ -1,9 +1,3 @@
-export interface TAddress {
-  street: string;
-  city: string;
-  country: string;
-}
-
 export interface TOrder {
   productName: string;
   price: number;
@@ -22,6 +16,10 @@ export interface TUser {
   email: string;
   isActive: boolean;
   hobbies: string[];
-  address: TAddress;
+  address: {
+    street: string;
+    city: string;
+    country: string;
+  };
   orders?: TOrder[];
 }
