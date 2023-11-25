@@ -75,6 +75,8 @@ const userSchema = new Schema<TUser, UserModel, UserMethods>({
   },
 });
 
+// Create pre middleware
+
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
@@ -85,10 +87,14 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+// Create post middleware
+
 userSchema.post('save', async function (doc, next) {
   doc.password = '';
   next();
 });
+
+// Create instance methods
 
 userSchema.methods.isUserExists = async function (userId: string) {
   const existingUser = await User.findOne({ userId });

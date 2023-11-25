@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { UserServices } from './user.service';
 import userValidationSchema from './user.validation';
 
+// Create user into DB
+
 const createUser = async (req: Request, res: Response) => {
   try {
     const user = req.body;
@@ -31,9 +33,12 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
+// Retrive all users from DB
+
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.getAllUsersFromDB();
+
     res.status(200).json({
       success: true,
       message: 'Users fetched successfully!',
@@ -52,10 +57,13 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+// Retrive a single user from DB
+
 const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const result = await UserServices.getSingleUserFromDB(userId);
+
     res.status(200).json({
       success: true,
       message: 'Users fetched successfully!',
@@ -74,13 +82,14 @@ const getSingleUser = async (req: Request, res: Response) => {
   }
 };
 
+// Upadte user data
+
 const updateSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     const userData = req.body;
 
     const result = await UserServices.updateUser(userId, userData);
-
     res.status(200).json({
       success: true,
       message: 'User updated successfully!',
@@ -99,10 +108,13 @@ const updateSingleUser = async (req: Request, res: Response) => {
   }
 };
 
+// Delete user data
+
 const deleteSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     await UserServices.deleteUser(userId);
+
     res.status(200).json({
       success: true,
       message: 'User deleted successfully!',

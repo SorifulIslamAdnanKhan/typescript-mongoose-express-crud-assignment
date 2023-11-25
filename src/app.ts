@@ -4,12 +4,12 @@ import { UserRoutes } from './app/modules/user/user.route';
 
 const app: Application = express();
 
-// parser
+// Parser
 
 app.use(express.json());
 app.use(cors());
 
-// application routes
+// Application routes
 
 app.use('/', UserRoutes);
 

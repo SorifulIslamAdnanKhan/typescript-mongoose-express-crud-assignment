@@ -4,10 +4,14 @@ import bcrypt from 'bcrypt';
 import userUpdateValidationSchema from './user.update.validation';
 import config from '../../config';
 
+// Create user into DB
+
 const createUserIntoDB = async (user: TUser) => {
   const result = await User.create(user);
   return result;
 };
+
+// Retrive all users from DB
 
 const getAllUsersFromDB = async () => {
   const result = await User.find().select({
@@ -22,6 +26,8 @@ const getAllUsersFromDB = async () => {
   return result;
 };
 
+// Retrive a single user from DB
+
 const getSingleUserFromDB = async (userId: string) => {
   const result = await User.findOne({ userId }).select({
     password: 0,
@@ -29,6 +35,9 @@ const getSingleUserFromDB = async (userId: string) => {
     __v: 0,
     orders: 0,
   });
+
+  // Checking user availability in DB
+
   if (result?.isUserExists(userId)) {
     return result;
   } else {
@@ -36,11 +45,18 @@ const getSingleUserFromDB = async (userId: string) => {
   }
 };
 
+// Upadte user data
+
 const updateUser = async (userId: string, userData: TUser) => {
   const zodParseUserData = userUpdateValidationSchema.safeParse(userData);
+
+  // Checking validation error with Zod
+
   if (!zodParseUserData.success) {
     throw new Error('Validation failed');
   }
+
+  // Creating hash passwrod with bcrypt
 
   if (zodParseUserData.data.password) {
     zodParseUserData.data.password = await bcrypt.hash(
@@ -56,6 +72,9 @@ const updateUser = async (userId: string, userData: TUser) => {
       new: true,
     },
   ).select({ password: 0, _id: 0, __v: 0, orders: 0 });
+
+  // Checking user availability in DB
+
   if (result?.isUserExists(userId)) {
     return result;
   } else {
@@ -63,8 +82,13 @@ const updateUser = async (userId: string, userData: TUser) => {
   }
 };
 
+// Delete user data
+
 const deleteUser = async (userId: string) => {
   const result = await User.findOneAndDelete({ userId });
+
+  // Checking user availability in DB
+
   if (result?.isUserExists(userId)) {
     return result;
   } else {
