@@ -4,7 +4,7 @@ Name: Typescript-Mongoose-Express-CRUD
 
 Github Repository: https://github.com/SorifulIslamAdnanKhan/typescript-mongoose-express-crud-assignment
 
-Server Link:
+Server Link: https://typescript-mongoose-express-crud-assignment.vercel.app/
 
 Features
 
