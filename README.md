@@ -1,4 +1,4 @@
-Project Details
+# Project Details
 
 Name: Typescript-Mongoose-Express-CRUD
 
@@ -6,35 +6,35 @@ Github Repository: https://github.com/SorifulIslamAdnanKhan/typescript-mongoose-
 
 Server Link: https://typescript-mongoose-express-crud-assignment.vercel.app/
 
-Features
+# Features
 
-# Create a Node, Express server.
+- Create a Node, Express server.
 
-# Connect MongoDB in the application.
+- Connect MongoDB in the application.
 
-# Create an interface for the user and add their types.
+- Create an interface for the user and add their types.
 
-# Insert the user into the database using the POST method.
+- Insert the user into the database using the POST method.
 
-# Get all users from the database using the GET method.
+- Get all users from the database using the GET method.
 
-# Get a single user from the database using the PUT method.
+- Get a single user from the database using the PUT method.
 
-# Update a single user to the database using the POST method.
+- Update a single user to the database using the POST method.
 
-# Delete user data from the database using the DELETE method.
+- Delete user data from the database using the DELETE method.
 
-# Create a custom instance to check isUserExists in the database or not.
+- Create a custom instance to check isUserExists in the database or not.
 
-# Use Postman to send requests.
+- Use Postman to send requests.
 
-# Use pre and post middleware.
+- Use pre and post middleware.
 
-# Use Zod validation.
+- Use Zod validation.
 
-# Use bcrypt to hash the password field.
+- Use bcrypt to hash the password field.
 
-Language, Tools and Library Used
+# Language, Tools and Library Used
 
 - TypeScript
 - Node
@@ -50,7 +50,7 @@ Language, Tools and Library Used
 - prettier
 - eslint
 
-How To Use Application Locally
+# How To Use Application Locally
 
 Note: Make sure you have Node.js and npm installed on your system before starting the setup.
 
